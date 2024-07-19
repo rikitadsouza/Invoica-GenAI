@@ -6,7 +6,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # Configure the API
 genai.configure(api_key='AIzaSyDePPKzsXffHpD1STr3zOIBzCp5SbRYIzI')
 
-# Load and prepare the model
+# model
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 def process_invoice(image_path):
