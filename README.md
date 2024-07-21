@@ -7,13 +7,6 @@ Invoica is a Python-based tool for processing and extracting information from in
 - Process invoice images using Google's Generative AI
 - Interactive Q&A system for invoice details
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Disclaimer
 
