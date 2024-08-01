@@ -1,9 +1,10 @@
+import streamlit as st
 from dotenv import load_dotenv
 load_dotenv()
 import google.generativeai as genai
 from PIL import Image
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+import io
 
 # Configure the API
 genai.configure(api_key=os.environ.get('GEMINI_API_KEY'))
@@ -11,28 +12,30 @@ genai.configure(api_key=os.environ.get('GEMINI_API_KEY'))
 # model
 model = genai.GenerativeModel('gemini-1.5-flash')
 
-def process_invoice(image_path):
-    image = Image.open(image_path)
-    return image
+def process_invoice(image_file):
+    return Image.open(image_file)
 
 def get_invoice_info(image, question):
     response = model.generate_content([image, question])
     return response.text
 
 def main():
-    invoice_path = input("Enter the path to your invoice image: ")
-    invoice_image = process_invoice(invoice_path)
+    st.title("Invoice Information Extractor")
+
+    uploaded_file = st.file_uploader("Upload an invoice image", type=["jpg", "jpeg", "png"])
     
-    while True:
-        question = input("Ask a question about the invoice (or 'quit' to exit): ")
-        if question.lower() == 'quit':
-            break
+    if uploaded_file is not None:
+        invoice_image = process_invoice(uploaded_file)
+        st.image(invoice_image, caption="Uploaded Invoice", use_column_width=True)
+
+        question = st.text_input("Ask a question about the invoice:")
         
-        try:
-            answer = get_invoice_info(invoice_image, question)
-            print(f"Answer: {answer}\n")
-        except Exception as e:
-            print(f"An error occurred: {e}\n")
+        if st.button("Get Answer"):
+            try:
+                answer = get_invoice_info(invoice_image, question)
+                st.write(f"Answer: {answer}")
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()
