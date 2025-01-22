@@ -20,7 +20,7 @@ def get_invoice_info(image, question):
     return response.text
 
 def main():
-    st.title("Invoice Information Extractor")
+    st.title("InvoiceScan - Invoice Information Extractor")
 
     uploaded_file = st.file_uploader("Upload an invoice image", type=["jpg", "jpeg", "png"])
     
