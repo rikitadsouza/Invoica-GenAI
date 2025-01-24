@@ -6,7 +6,7 @@ from PIL import Image
 import os
 import io
 
-# Configure the API
+
 genai.configure(api_key=os.environ.get('GEMINI_API_KEY'))
 
 # model
